@@ -1,117 +1,50 @@
 import 'package:flutter/material.dart';
+import 'package:vaje_yar/core/utils/colors.dart';
+import 'package:vaje_yar/feature/home/presentation/widget/main_menu.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
-
-  @override
-  _HomeScreenState createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  late Animation<Offset> _leftAnimation;
-  late Animation<Offset> _rightAnimation;
-
-  @override
-  void initState() {
-    super.initState();
-
-    // تنظیم AnimationController
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 1000),
-    );
-
-    // تنظیم Tween برای مربع‌های سمت چپ که از چپ وارد می‌شوند
-    _leftAnimation = Tween<Offset>(
-      begin: const Offset(-1.5, 0.0), // از بیرون سمت چپ
-      end: Offset.zero, // به موقعیت اصلی
-    ).animate(CurvedAnimation(
-      parent: _controller,
-      curve: Curves.easeInOut,
-    ));
-
-    // تنظیم Tween برای مربع‌های سمت راست که از راست وارد می‌شوند
-    _rightAnimation = Tween<Offset>(
-      begin: const Offset(1.5, 0.0), // از بیرون سمت راست
-      end: Offset.zero, // به موقعیت اصلی
-    ).animate(CurvedAnimation(
-      parent: _controller,
-      curve: Curves.easeInOut,
-    ));
-
-    // شروع انیمیشن هنگام نمایش صفحه
-    _controller.forward();
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: SafeArea(
-        child: Center(
-          child: SizedBox(
-            width: 300,
-            height: 300,
-            child: Stack(
-              children: [
-                // مربع‌های سمت چپ
-                SlideTransition(
-                  position: _leftAnimation,
-                  child: Align(
-                    alignment: Alignment.topLeft,
-                    child: Container(
-                      width: 140,
-                      height: 140,
-                      color: Colors.red,
-                    ),
-                  ),
-                ),
-                SlideTransition(
-                  position: _leftAnimation,
-                  child: Align(
-                    alignment: Alignment.bottomLeft,
-                    child: Container(
-                      width: 140,
-                      height: 140,
-                      color: Colors.green,
-                    ),
-                  ),
-                ),
-                // مربع‌های سمت راست
-                SlideTransition(
-                  position: _rightAnimation,
-                  child: Align(
-                    alignment: Alignment.topRight,
-                    child: Container(
-                      width: 140,
-                      height: 140,
-                      color: Colors.blue,
-                    ),
-                  ),
-                ),
-                SlideTransition(
-                  position: _rightAnimation,
-                  child: Align(
-                    alignment: Alignment.bottomRight,
-                    child: Container(
-                      width: 140,
-                      height: 140,
-                      color: Colors.orange,
-                    ),
-                  ),
-                ),
-              ],
+        child: Column(
+          children: [
+            ClipPath(
+              clipper: BottomCurveClipper(),
+              child: Container(
+                width: MediaQuery.sizeOf(context).width,
+                height: MediaQuery.sizeOf(context).height/3,
+                color: AppColors.foregroundColor,
+              ),
             ),
-          ),
-        ),
+            const MainMenuWidget()
+          ],
+        )
       ),
     );
   }
+}
+
+class BottomCurveClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    var path = Path();
+    path.lineTo(0, size.height - 50);
+
+    var controlPoint = Offset(size.width / 2, size.height);
+    var endPoint = Offset(size.width, size.height - 50);
+
+    path.quadraticBezierTo(
+        controlPoint.dx, controlPoint.dy, endPoint.dx, endPoint.dy);
+    path.lineTo(size.width, 0);
+    path.close();
+
+    return path;
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
 }

@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
       initialRoute: RouteHelper.auth,
       initialBinding: AppBindings(),
       getPages: RouteHelper.pages,
-      theme: ThemeData(fontFamily: 'IranSans', scaffoldBackgroundColor: AppColors.backgroundColor),
+      theme: ThemeData(fontFamily: 'Moraba', scaffoldBackgroundColor: AppColors.backgroundColor),
     );
   }
 }

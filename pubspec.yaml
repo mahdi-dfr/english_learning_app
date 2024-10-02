@@ -66,6 +66,7 @@ flutter:
   assets:
     - assets/images/back_login.png
     - assets/images/login_img.png
+    - assets/images/login.svg
     - assets/images/phone_icon.svg
     - assets/images/password_icon.svg
     - assets/anim/bear_avatar_remix.riv
@@ -83,9 +84,12 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-    - family: IranSans
+    - family: Moraba
       fonts:
-        - asset: assets/fonts/IRANSansWeb.ttf
+        - asset: assets/fonts/Morabba-Bold.ttf
+          style: italic
+        - asset: assets/fonts/Morabba-Regular.ttf
+          style: normal
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

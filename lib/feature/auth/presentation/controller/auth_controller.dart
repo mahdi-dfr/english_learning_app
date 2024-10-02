@@ -6,11 +6,11 @@ class AuthController extends GetxController{
 
   final phoneNumberController = TextEditingController();
   final otpController = TextEditingController();
-  final isNumberFieldState = true.obs;
+  final isPhoneNumberFieldState = true.obs;
 
   Future<void> animateFields() async {
-    if(isNumberFieldState.value){
-      isNumberFieldState.value = false;
+    if(isPhoneNumberFieldState.value){
+      isPhoneNumberFieldState.value = false;
     }else{
       Get.toNamed(RouteHelper.home);
     }
