@@ -62,47 +62,31 @@ class _MainMenuWidgetState extends State<MainMenuWidget> with SingleTickerProvid
             // مربع‌های سمت چپ
             SlideTransition(
               position: _leftAnimation,
-              child: Align(
+              child: const Align(
                 alignment: Alignment.topLeft,
-                child: Container(
-                  width: 140,
-                  height: 140,
-                  color: Colors.red,
-                ),
+                child: MenuItem(),
               ),
             ),
             SlideTransition(
               position: _leftAnimation,
-              child: Align(
+              child: const Align(
                 alignment: Alignment.bottomLeft,
-                child: Container(
-                  width: 140,
-                  height: 140,
-                  color: Colors.green,
-                ),
+                child: MenuItem(),
               ),
             ),
             // مربع‌های سمت راست
             SlideTransition(
               position: _rightAnimation,
-              child: Align(
+              child: const Align(
                 alignment: Alignment.topRight,
-                child: Container(
-                  width: 140,
-                  height: 140,
-                  color: Colors.blue,
-                ),
+                child: MenuItem(),
               ),
             ),
             SlideTransition(
               position: _rightAnimation,
-              child: Align(
+              child: const Align(
                 alignment: Alignment.bottomRight,
-                child: Container(
-                  width: 140,
-                  height: 140,
-                  color: Colors.orange,
-                ),
+                child: MenuItem(),
               ),
             ),
           ],
@@ -111,3 +95,30 @@ class _MainMenuWidgetState extends State<MainMenuWidget> with SingleTickerProvid
     );
   }
 }
+
+
+class MenuItem extends StatelessWidget {
+  const MenuItem({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 140,
+      height: 140,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(15),
+        color: Colors.white,
+        border: Border.all(width: 1, color: Colors.black),
+        boxShadow: const [
+          BoxShadow(
+            color: Colors.black,
+            offset: Offset(3, 5),
+            blurRadius: 0,
+            spreadRadius: 1,
+          )
+        ]
+      ),
+    );
+  }
+}
+

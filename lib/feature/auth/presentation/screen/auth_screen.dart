@@ -17,9 +17,6 @@ class AuthScreen extends StatelessWidget {
     var width = MediaQuery
         .sizeOf(context)
         .width;
-    var height = MediaQuery
-        .sizeOf(context)
-        .height;
     return Scaffold(
         body: SafeArea(
             child: Padding(

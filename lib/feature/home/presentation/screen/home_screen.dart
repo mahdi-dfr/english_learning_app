@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:vaje_yar/core/utils/colors.dart';
 import 'package:vaje_yar/feature/home/presentation/widget/main_menu.dart';
 
@@ -7,23 +8,37 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var width = MediaQuery.sizeOf(context).width;
+    var height = MediaQuery.sizeOf(context).height;
+
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: AppColors.foregroundColor));
 
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          children: [
-            ClipPath(
-              clipper: BottomCurveClipper(),
-              child: Container(
-                width: MediaQuery.sizeOf(context).width,
-                height: MediaQuery.sizeOf(context).height/3,
+          child: Column(
+        children: [
+          Stack(children: [
+            Container(
+              width: width,
+              height: height / 4 + 5,
+              decoration: const BoxDecoration(
+                color: Colors.black,
+              ),
+            ),
+            Container(
+              width: width,
+              height: height / 4,
+              decoration: BoxDecoration(
                 color: AppColors.foregroundColor,
               ),
             ),
-            const MainMenuWidget()
-          ],
-        )
-      ),
+          ]),
+          const SizedBox(
+            height: 100,
+          ),
+          const MainMenuWidget()
+        ],
+      )),
     );
   }
 }
@@ -37,8 +52,7 @@ class BottomCurveClipper extends CustomClipper<Path> {
     var controlPoint = Offset(size.width / 2, size.height);
     var endPoint = Offset(size.width, size.height - 50);
 
-    path.quadraticBezierTo(
-        controlPoint.dx, controlPoint.dy, endPoint.dx, endPoint.dy);
+    path.quadraticBezierTo(controlPoint.dx, controlPoint.dy, endPoint.dx, endPoint.dy);
     path.lineTo(size.width, 0);
     path.close();
 
