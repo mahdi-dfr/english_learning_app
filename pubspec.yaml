@@ -39,6 +39,8 @@ dependencies:
   get: ^4.6.6
   dio: ^5.7.0
   flutter_svg: ^2.0.10+1
+  syncfusion_flutter_charts: ^27.1.51
+  flutter_credit_card: ^4.0.1
 
 dev_dependencies:
   flutter_test:
