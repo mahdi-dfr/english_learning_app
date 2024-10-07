@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:vaje_yar/core/resource/route_helper.dart';
 import 'package:vaje_yar/core/utils/colors.dart';
+import 'package:vaje_yar/feature/menu/presentation/screen/bookmark_screen.dart';
 import 'package:vaje_yar/main.dart';
 
 class MainMenuWidget extends StatefulWidget {
@@ -64,31 +67,31 @@ class _MainMenuWidgetState extends State<MainMenuWidget> with SingleTickerProvid
             // مربع‌های سمت چپ
             SlideTransition(
               position: _leftAnimation,
-              child: const Align(
+              child: Align(
                 alignment: Alignment.topLeft,
-                child: MenuItem(title: 'مورد علاقه', icon: Icons.favorite_border,),
+                child: MenuItem(title: 'مورد علاقه', icon: Icons.favorite_border, onPressed: () { Get.toNamed(RouteHelper.favorite); },),
               ),
             ),
             SlideTransition(
               position: _leftAnimation,
-              child: const Align(
+              child: Align(
                 alignment: Alignment.bottomLeft,
-                child: MenuItem(title: 'دسته بندی', icon: Icons.category,),
+                child: MenuItem(title: 'دسته بندی', icon: Icons.category, onPressed: () {  },),
               ),
             ),
             // مربع‌های سمت راست
             SlideTransition(
               position: _rightAnimation,
-              child: const Align(
+              child: Align(
                 alignment: Alignment.topRight,
-                child: MenuItem(title: 'کلمات من', icon: Icons.title,),
+                child: MenuItem(title: 'کلمات من', icon: Icons.title, onPressed: () { Get.toNamed(RouteHelper.bookMark); },),
               ),
             ),
             SlideTransition(
               position: _rightAnimation,
-              child: const Align(
+              child: Align(
                 alignment: Alignment.bottomRight,
-                child: MenuItem(title: 'وضعیت', icon: Icons.stacked_bar_chart,),
+                child: MenuItem(title: 'وضعیت', icon: Icons.stacked_bar_chart, onPressed: () {  },),
               ),
             ),
           ],
@@ -100,37 +103,41 @@ class _MainMenuWidgetState extends State<MainMenuWidget> with SingleTickerProvid
 
 
 class MenuItem extends StatelessWidget {
-  const MenuItem({super.key, required this.title, required this.icon});
+  const MenuItem({super.key, required this.title, required this.icon, required this.onPressed});
 
   final String title;
   final IconData icon;
+  final Function() onPressed;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 140,
-      height: 140,
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(15),
-        color: Colors.white,
-        border: Border.all(width: 1, color: Colors.black),
-        boxShadow: const [
-          BoxShadow(
-            color: Colors.black,
-            offset: Offset(3, 5),
-            blurRadius: 0,
-            spreadRadius: 1,
-          )
-        ]
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Icon(icon, size: 45, color: AppColors.foregroundColor,),
-          Text(title, style: const TextStyle(fontSize: 18),)
-        ],
+    return GestureDetector(
+      onTap: onPressed,
+      child: Container(
+        width: 140,
+        height: 140,
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15),
+          color: Colors.white,
+          border: Border.all(width: 1, color: Colors.black),
+          boxShadow: const [
+            BoxShadow(
+              color: Colors.black,
+              offset: Offset(3, 5),
+              blurRadius: 0,
+              spreadRadius: 1,
+            )
+          ]
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Icon(icon, size: 45, color: AppColors.foregroundColor,),
+            Text(title, style: const TextStyle(fontSize: 18),)
+          ],
+        ),
       ),
     );
   }

@@ -1,25 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:vaje_yar/core/widget/like_bookmark_widget.dart';
+import 'package:vaje_yar/feature/home/presentation/controller/exam_controller.dart';
 
 import '../../../../core/utils/colors.dart';
+import '../widget/show_farsi_meanuing_button.dart';
 import '../widget/flip_card.dart';
 
 class ExamScreen extends StatelessWidget {
-  const ExamScreen({super.key});
+  ExamScreen({super.key});
+
+  final _controller = Get.find<ExamController>();
 
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: AppColors.backgroundColor));
 
-    var width = MediaQuery.sizeOf(context).width;
-    var height = MediaQuery.sizeOf(context).height;
-
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppColors.backgroundColor,
-        leading: IconButton(onPressed: () => Get.back(), icon: const Icon(Icons.arrow_back_ios_new_rounded)),
-      ),
+      appBar: AppBar(leading: IconButton(onPressed: ()=> Get.back(), icon: const Icon(Icons.arrow_back_ios_outlined)),),
       body: SafeArea(
         child: Container(
           margin: const EdgeInsets.symmetric(horizontal: 20),
@@ -33,7 +32,9 @@ class ExamScreen extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              const FlipCard(),
+              AnimatedSwitcher(duration: Duration(milliseconds: 500),
+
+              child: const FlipCard(key: ValueKey('1'),)),
               const SizedBox(
                 height: 70,
               ),
@@ -52,6 +53,12 @@ class ExamScreen extends StatelessWidget {
                       const Text('اشتباه جواب دادم')
                     ],
                   ),
+                  Obx(() {
+                    return BookMarkWidget(state: _controller.isBookMarked.value, onPressed:()=> _controller.changeBookMarkState());
+                  }),
+                  Obx(() {
+                    return LikeWidget(state: _controller.isLiked.value, onPressed:()=> _controller.changeFavoriteState());
+                  }),
                   Column(
                     children: [
                       IconButton(
@@ -69,26 +76,7 @@ class ExamScreen extends StatelessWidget {
               const SizedBox(
                 height: 40,
               ),
-              Center(
-                child: ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
-                      backgroundColor: AppColors.foregroundColor,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(100),
-                        side: const BorderSide(color: Colors.black, width: 3), // Retro border
-                      ),
-                    ),
-                    child: const Text(
-                      'مشاهده معنی فارسی',
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.black,
-                        letterSpacing: 2,
-                      ),
-                    )),
-              )
+              const ShowFarsiMeaningButton()
             ],
           ),
         ),

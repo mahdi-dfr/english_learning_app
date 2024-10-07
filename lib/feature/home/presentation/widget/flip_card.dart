@@ -110,7 +110,7 @@ class _FlipCardState extends State<FlipCard> with SingleTickerProviderStateMixin
               )
             ]),
         alignment: Alignment.center,
-        child: Padding(
+        child: const Padding(
           padding: EdgeInsets.symmetric(horizontal: 25),
           child: Text(
             'a spiritual being believed to act as an attendant, agent, or messenger of God, conventionally represented in human form with wings and a long robe.',
