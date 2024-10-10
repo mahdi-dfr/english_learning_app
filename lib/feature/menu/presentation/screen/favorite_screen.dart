@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:get/get.dart';
+import 'package:vaje_yar/core/resource/route_helper.dart';
 import 'package:vaje_yar/core/utils/colors.dart';
 import 'package:vaje_yar/feature/menu/presentation/widget/swiped_card_widget.dart';
 
@@ -23,7 +24,7 @@ class FavoriteScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton.extended(onPressed: (){}, label: const Row(children: [
+      floatingActionButton: FloatingActionButton.extended(onPressed: ()=>Get.toNamed(RouteHelper.addWord), label: const Row(children: [
         Text('اضافه کردن لغت جدید', style: TextStyle(color: Colors.black),)
       ],), backgroundColor: AppColors.foregroundColor,),
       appBar: AppBar(
